@@ -14,8 +14,8 @@ Also, it is built using microservices architecture, it has 4 microservices, the 
 
 ## Todo
 
-- [ ] Create base mono-repo
-- [ ] Add typescript
-- [ ] Add eslint
+- [x] Create base mono-repo
+- [x] Add typescript
+- [x] Add eslint
 
 
