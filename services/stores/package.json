@@ -6,5 +6,8 @@
   "scripts": {
     "build": "tsc -b",
     "test": "jest"
+  },
+  "dependencies": {
+    "joi": "^17.7.0"
   }
 }
