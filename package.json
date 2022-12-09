@@ -2,7 +2,8 @@
   "name": "marketplace",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "services/*"
   ],
   "devDependencies": {
     "lerna": "^6.1.0"
