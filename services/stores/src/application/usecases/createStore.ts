@@ -1,17 +1,18 @@
-import ValidationError from '@application/exceptions/ValidationError'
+import { ValidationError } from '@application/exceptions'
 import StoreDBRepository from '@application/repositories/storeDBRepository'
-import { StoreValidator } from '@application/validators'
+import { CreateStoreValidator } from '@application/validators'
+import Store from '@domain/store'
 
-export type StoreRequest = {
+export type CreateStoreRequest = {
   name: string;
   fee?: number;
 }
 
-export class CreateStore {
+export default class CreateStore {
   constructor (private readonly storeRepository: StoreDBRepository) {}
 
-  async execute ({ name, fee }: StoreRequest): Promise<any> {
-    const error = StoreValidator({ name, fee })
+  async execute ({ name, fee }: CreateStoreRequest): Promise<Store> {
+    const error = CreateStoreValidator({ name, fee })
     if (error) {
       throw new ValidationError(error)
     }
@@ -19,7 +20,10 @@ export class CreateStore {
     if (!fee) {
       fee = 10
     }
-    const store = await this.storeRepository.create({ name, fee })
+    const store = await this.storeRepository.create({
+      name,
+      fee
+    })
     return store
   }
 }

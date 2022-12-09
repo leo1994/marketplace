@@ -3,11 +3,17 @@
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "_moduleAliases": {
+    "@application": "./dist/application",
+    "@domain": "./dist/domain",
+    "@infrastructure": "./dist/infrastructure"
+  },
   "scripts": {
     "build": "tsc -b",
     "test": "jest"
   },
   "dependencies": {
-    "joi": "^17.7.0"
+    "joi": "^17.7.0",
+    "mongodb": "^4.12.1"
   }
 }

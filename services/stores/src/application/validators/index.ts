@@ -1,7 +1,8 @@
 import Joi, { ValidationErrorItem } from 'joi'
-import { StoreRequest } from '@application/usecases/createStore'
-import StoreSchema from './storeSchema'
+import { CreateStoreRequest } from '@application/usecases/createStore'
+import { CreateStoreSchema, UpdateStoreSchema } from './storeSchema'
 import { ValidationErrorType } from '@application/exceptions/ValidationError'
+import { UpdateStoreRequest } from '@application/usecases/updateStore'
 
 const JoiValidator = (payload: any, schema: Joi.ObjectSchema) => {
   const { error } = schema.validate(payload, { abortEarly: false })
@@ -16,8 +17,10 @@ const JoiValidator = (payload: any, schema: Joi.ObjectSchema) => {
   return false
 }
 
-const StoreValidator = (storeRequest: StoreRequest): ValidationErrorType | false => JoiValidator(storeRequest, StoreSchema)
+const CreateStoreValidator = (storeRequest: CreateStoreRequest): ValidationErrorType | false => JoiValidator(storeRequest, CreateStoreSchema)
+const UpdateStoreValidator = (storeRequest: UpdateStoreRequest): ValidationErrorType | false => JoiValidator(storeRequest, UpdateStoreSchema)
 
 export {
-  StoreValidator
+  CreateStoreValidator,
+  UpdateStoreValidator
 }

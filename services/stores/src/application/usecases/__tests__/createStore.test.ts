@@ -1,17 +1,17 @@
 import ValidationError from '@application/exceptions/ValidationError'
-import { CreateStore } from '@application/usecases/createStore'
+import CreateStore from '@application/usecases/createStore'
 import { SchemaErrorMessages } from '@application/validators/storeSchema'
+import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'
 
-const mockStoreRepository = {
-  create: jest.fn().mockImplementation((store) => store),
-  update: jest.fn().mockImplementation((store) => store)
-}
+const mockStoreRepository = new StoreDBRepositoryMock()
+
 describe('CreateStore', () => {
   it('should create a store', async () => {
     const createStore = new CreateStore(mockStoreRepository)
     const store = await createStore.execute({ name: 'Store 1', fee: 10 })
     expect(store.name).toBe('Store 1')
     expect(store.fee).toBe(10)
+    expect(store.id).toBeDefined()
   })
 
   it('should create a store with default fee', async () => {
@@ -19,6 +19,7 @@ describe('CreateStore', () => {
     const store = await createStore.execute({ name: 'Store 2' })
     expect(store.name).toBe('Store 2')
     expect(store.fee).toBe(10)
+    expect(store.id).toBeDefined()
   })
 
   it('should return error when name is not provided', async () => {
