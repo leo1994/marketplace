@@ -1,7 +1,7 @@
-function main(): void {
-  const example: string = 'Hello World';
+function main (): void {
+  const example: string = 'Hello World'
 
-  console.log(example);
+  console.log(example)
 }
 
-export default main;
+export default main

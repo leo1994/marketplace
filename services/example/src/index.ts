@@ -1,3 +1,3 @@
-import main from "@marketplace/core";
+import main from '@marketplace/core'
 
-main();
+main()
