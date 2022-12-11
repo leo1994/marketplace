@@ -1,0 +1,7 @@
+federation_version: 2
+
+subgraphs:
+  stores-service:
+    routing_url: http://stores:4000
+    schema:
+      subgraph_url: http://localhost:4000

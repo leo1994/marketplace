@@ -11,6 +11,38 @@ services:
       - mongo:/data/db
     networks:
       - servicesNetwork
+  
+  stores:
+    container_name: stores
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=stores
+    depends_on:
+      - mongo
+    networks:
+      - servicesNetwork
+    ports:
+      - 4000:4000
+  
+  # Graphql Router
+  apollo-router:
+    image: ghcr.io/apollographql/router:v1.5.0
+    container_name: apollo-router
+    restart: always
+    depends_on:
+      - stores
+    environment:
+      APOLLO_ROUTER_SUPERGRAPH_PATH: /apolloRouter/schema/supergraph.graphql
+      APOLLO_ROUTER_CONFIG_PATH: /apolloRouter/config/router.yml
+    volumes:
+      - ./apolloRouter/supergraph.graphql:/apolloRouter/schema/supergraph.graphql
+      - ./apolloRouter/router.yml:/apolloRouter/config/router.yml
+    ports:
+      - 4001:4000
+    networks:
+      - servicesNetwork
 
 networks:
   servicesNetwork:

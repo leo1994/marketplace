@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "start": "NODE_ENV=prod TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/infrastructure/graphql/index.js",
+    "start": "TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/infrastructure/graphql/index.js",
     "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.tests.ts' --exec 'ts-node  -r tsconfig-paths/register src/infrastructure/graphql/index.ts'",
     "build": "npm run clean && npm run codegen && tsc -b && npm run schema:copy-files",
     "codegen": "graphql-codegen --config codegen.ts",    
