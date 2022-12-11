@@ -6,15 +6,15 @@
   "scripts": {
     "test": "jest",
     "start": "TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/infrastructure/graphql/index.js",
-    "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.tests.ts' --exec 'ts-node  -r tsconfig-paths/register src/infrastructure/graphql/index.ts'",
+    "start:dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.tests.ts' --exec 'ts-node  -r tsconfig-paths/register src/infrastructure/graphql/index.ts'",
     "build": "npm run clean && npm run codegen && tsc -b && npm run schema:copy-files",
-    "codegen": "graphql-codegen --config codegen.ts",    
+    "codegen": "graphql-codegen --config codegen.ts",
     "schema:copy-files": "shx cp ./src/infrastructure/graphql/schema.graphql ./dist/infrastructure/graphql/schema.graphql",
     "clean": "shx rm -rf ./dist"
   },
   "dependencies": {
-    "joi": "^17.7.0",
-    "mongodb": "^4.12.1",
-    "@marketplace/core": "0.0.0"
+    "@marketplace/core": "^0.0.0",
+    "@marketplace/logger": "^0.0.0",
+    "joi": "^17.7.0"
   }
 }

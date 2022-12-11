@@ -1,3 +1,10 @@
+# build
 node_modules/
 dist/
 coverage/
+
+# Logs
+logs
+
+# typescript
+*.tsbuildinfo

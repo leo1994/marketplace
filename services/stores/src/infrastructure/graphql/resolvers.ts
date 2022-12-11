@@ -1,5 +1,5 @@
 import { CreateStore, FindStoreById, GetAllStores, UpdateStore } from '@application/usecases'
-import StoreDBRepositoryMongoDB from '@infrastructure/database/mongo/repositories/storeDBRepositoryMongoDB'
+import StoreDBRepositoryMongoDB from '@infrastructure/database/mongo/storeDBRepositoryMongoDB'
 import { Resolvers } from '@infrastructure/generate'
 
 const storeRepository = new StoreDBRepositoryMongoDB()

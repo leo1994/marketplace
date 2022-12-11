@@ -1,16 +1,16 @@
 import StoreDBRepository from '@application/repositories/storeDBRepository'
 import Store from '@domain/store'
-import MongoHelper from '@infrastructure/database/mongo'
+import { MongoClient } from '@marketplace/core'
 import { ObjectId } from 'mongodb'
 
 export default class StoreDBRepositoryMongoDB implements StoreDBRepository {
   async create (store: Omit<Store, 'id'>): Promise<Store> {
-    const document = await MongoHelper.getCollection('stores').insertOne(store)
-    return MongoHelper.map({ ...store, _id: document.insertedId })
+    const document = await MongoClient.getCollection('stores').insertOne(store)
+    return MongoClient.map({ ...store, _id: document.insertedId })
   }
 
   async update (store: Store): Promise<Store | null> {
-    const document = await MongoHelper.getCollection('stores').findOneAndUpdate(
+    const document = await MongoClient.getCollection('stores').findOneAndUpdate(
       { _id: new ObjectId(store.id) },
       {
         $set: {
@@ -22,19 +22,19 @@ export default class StoreDBRepositoryMongoDB implements StoreDBRepository {
     if (!document.value) {
       return null
     }
-    return MongoHelper.map({ ...store, _id: document.value._id })
+    return MongoClient.map({ ...store, _id: document.value._id })
   }
 
   async getAll (): Promise<Store[]> {
-    const documents = await MongoHelper.getCollection('stores').find().toArray()
-    return documents.map(document => MongoHelper.map(document))
+    const documents = await MongoClient.getCollection('stores').find().toArray()
+    return documents.map(document => MongoClient.map(document))
   }
 
   async findById (id: string): Promise<Store | null> {
-    const document = await MongoHelper.getCollection('stores').findOne({ _id: new ObjectId(id) })
+    const document = await MongoClient.getCollection('stores').findOne({ _id: new ObjectId(id) })
     if (!document) {
       return null
     }
-    return MongoHelper.map(document)
+    return MongoClient.map(document)
   }
 }
