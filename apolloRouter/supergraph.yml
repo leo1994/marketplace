@@ -4,4 +4,4 @@ subgraphs:
   stores-service:
     routing_url: http://stores:4000
     schema:
-      subgraph_url: http://localhost:4000
+      file: '../services/stores/src/infrastructure/graphql/schema.graphql'

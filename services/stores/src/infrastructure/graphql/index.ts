@@ -27,7 +27,7 @@ const server = new ApolloServer({
 })
 
 const main = async () => {
-  const mongoUri = process.env.MONGO_URL || 'mongodb://mongo:27017'
+  const mongoUri = process.env.MONGO_URL || 'mongodb://localhost:27017'
   await MongoHelper.connect(mongoUri)
   const { url } = await startStandaloneServer(server)
 

@@ -10,12 +10,17 @@ The Marketplace use graphql, and to communicate between the microservices it use
 
 > They are automatically generated when you run build application.
 
+## Graphql Router
+
+The graphql router is implemented using Apollo Federation, it is a gateway that allows you to communicate between the microservices.
+To 
+
 ## Step by step how I built this application
 
 - [x] [Create a mono-repo](https://github.com/leo1994/marketplace/tree/feature/basic-setup%231)
-- [ ] [Create a simple store service]()
-- [ ] [Add graphql to the store service]()
-- [ ] [Implement graphql router]()
+- [x] [Create a simple store service]()
+- [x] [Add graphql to the store service]()
+- [x] [Implement graphql router]()
 ## Technologies
 
 - Node.js (Typescript)
@@ -25,6 +30,5 @@ The Marketplace use graphql, and to communicate between the microservices it use
 - Docker-compose
 - MongoDB
 
-## Todo
 
 

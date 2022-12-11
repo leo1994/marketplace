@@ -19,12 +19,15 @@ services:
       dockerfile: Dockerfile
       args:
         - BUILD_CONTEXT=stores
+    environment:
+      MONGO_URL: mongodb://mongo:27017
     depends_on:
       - mongo
     networks:
       - servicesNetwork
     ports:
       - 4000:4000
+    restart: always
   
   # Graphql Router
   apollo-router:
@@ -40,7 +43,7 @@ services:
       - ./apolloRouter/supergraph.graphql:/apolloRouter/schema/supergraph.graphql
       - ./apolloRouter/router.yml:/apolloRouter/config/router.yml
     ports:
-      - 4001:4000
+      - 4000:4000
     networks:
       - servicesNetwork
 
