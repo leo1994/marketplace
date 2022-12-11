@@ -1,0 +1,17 @@
+extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable"])
+
+type Query {
+    store(id: ID!): Store
+    stores: [Store]
+}
+
+type Store @key(fields: "id") {
+    id: ID!
+    name: String
+    fee: Float
+}
+
+type Mutation {
+    createStore(name: String!, fee: Float!): Store
+    updateStore(id: ID!, name: String, fee: Float): Store
+}

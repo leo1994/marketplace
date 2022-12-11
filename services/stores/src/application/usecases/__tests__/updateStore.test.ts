@@ -1,6 +1,6 @@
 import { ValidationError, NotFoundError } from '@application/exceptions/'
 import { SchemaErrorMessages } from '@application/validators/storeSchema'
-import UpdateStore from '@application/usecases/updateStore'
+import { UpdateStore } from '@application/usecases/'
 import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'
 
 const mockStoreRepository = new StoreDBRepositoryMock()

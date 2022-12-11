@@ -1,8 +1,6 @@
-// Test find store by id
-
 import { NotFoundError } from '@application/exceptions'
 import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'
-import FindStoreById from '@application/usecases/findStoreById'
+import { FindStoreById } from '@application/usecases'
 
 const mockStoreRepository = new StoreDBRepositoryMock()
 

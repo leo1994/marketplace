@@ -4,7 +4,7 @@ import MongoHelper from '@infrastructure/database/mongo'
 import { ObjectId } from 'mongodb'
 
 export default class StoreDBRepositoryMongoDB implements StoreDBRepository {
-  async create (store: Store): Promise<Store> {
+  async create (store: Omit<Store, 'id'>): Promise<Store> {
     const document = await MongoHelper.getCollection('stores').insertOne(store)
     return MongoHelper.map({ ...store, _id: document.insertedId })
   }
@@ -23,6 +23,11 @@ export default class StoreDBRepositoryMongoDB implements StoreDBRepository {
       return null
     }
     return MongoHelper.map({ ...store, _id: document.value._id })
+  }
+
+  async getAll (): Promise<Store[]> {
+    const documents = await MongoHelper.getCollection('stores').find().toArray()
+    return documents.map(document => MongoHelper.map(document))
   }
 
   async findById (id: string): Promise<Store | null> {

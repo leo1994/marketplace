@@ -20,10 +20,7 @@ export default class CreateStore {
     if (!fee) {
       fee = 10
     }
-    const store = await this.storeRepository.create({
-      name,
-      fee
-    })
+    const store = await this.storeRepository.create({ name, fee })
     return store
   }
 }

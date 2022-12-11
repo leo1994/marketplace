@@ -6,8 +6,8 @@ import Store from '@domain/store'
 
 export type UpdateStoreRequest = {
   id: string;
-  name?: string;
-  fee?: number;
+  name?: string | null;
+  fee?: number | null;
 }
 
 export default class UpdateStore {

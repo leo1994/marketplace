@@ -1,5 +1,5 @@
-import ValidationError from '@application/exceptions/ValidationError'
-import CreateStore from '@application/usecases/createStore'
+import { ValidationError } from '@application/exceptions'
+import { CreateStore } from '@application/usecases'
 import { SchemaErrorMessages } from '@application/validators/storeSchema'
 import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'
 

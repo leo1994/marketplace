@@ -1,5 +1,5 @@
 type Store = {
-  id?: string;
+  id: string;
   name: string;
   fee: number;
 }

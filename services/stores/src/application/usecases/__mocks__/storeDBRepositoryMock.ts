@@ -8,7 +8,7 @@ const stores = Array.from({ length: 3 }, (_, i) => i + 1).map((i) => ({
 }))
 
 export default class StoreDBRepositoryMock implements StoreDBRepository {
-  async create (store: Store): Promise<Store> {
+  async create (store: Omit<Store, 'id'>): Promise<Store> {
     return { ...store, id: (stores.length + 1).toString() }
   }
 
@@ -28,5 +28,9 @@ export default class StoreDBRepositoryMock implements StoreDBRepository {
 
   async findById (id: string): Promise<Store | null> {
     return stores.find((s) => s.id === id) || null
+  }
+
+  async getAll (): Promise<Store[]> {
+    return stores
   }
 }

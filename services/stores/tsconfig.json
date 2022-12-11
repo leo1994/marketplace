@@ -1,15 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist",
+    "baseUrl": "./src",
     "paths": {
-      "@application/*": ["./src/application/*"],
-      "@domain/*": ["./src/domain/*"],
-      "@infrastructure/*": ["./src/infrastructure/*"],
+      "@application/*": ["./application/*"],
+      "@domain/*": ["./domain/*"],
+      "@infrastructure/*": ["./infrastructure/*"],
     },
   },
   "include": [
-    "./src"
+    "./src",
+    "./src/index.ts"
   ],
   "exclude": [
     "node_modules",
