@@ -10,7 +10,7 @@
     "test": "lerna run test",
     "start": "lerna run start --parallel",
     "start:dev": "lerna run start:dev --parallel",
-    "start:packages": "lerna run start:packages --parallel",
+    "start:packages": "lerna run start:packages",
     "codegen": "lerna run codegen",
     "supergraph": "APOLLO_ELV2_LICENSE=accept rover supergraph compose --config ./apolloRouter/supergraph.yml > ./apolloRouter/supergraph.graphql"
   },

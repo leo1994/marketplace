@@ -1,5 +1,5 @@
 
-import { NotFoundError, ValidationError } from '@application/exceptions/'
+import { NotFoundError, ValidationError } from '@marketplace/core'
 import StoreDBRepository from '@application/repositories/storeDBRepository'
 import { UpdateStoreValidator } from '@application/validators'
 import Store from '@domain/store'

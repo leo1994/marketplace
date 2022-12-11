@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+  
+  ## Infrastructure
   mongo:
     image: mongo:6.0.3
     container_name: mongo
@@ -11,27 +13,6 @@ services:
       - mongo:/data/db
     networks:
       - servicesNetwork
-  
-  stores:
-    container_name: stores
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - BUILD_CONTEXT=stores
-    environment:
-      MONGO_URL: mongodb://mongo:27017
-      NODE_ENV: production
-      SERVICE_NAME: stores
-    depends_on:
-      - mongo
-    networks:
-      - servicesNetwork
-    ports:
-      - 4000:4000
-    restart: always
-  
-  # Graphql Router
   apollo-router:
     image: ghcr.io/apollographql/router:v1.5.0
     container_name: apollo-router
@@ -48,7 +29,42 @@ services:
       - 4000:4000
     networks:
       - servicesNetwork
+  
+  ## Microservices
+  stores:
+    container_name: stores
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=stores
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      NODE_ENV: production
+      SERVICE_NAME: stores
+    depends_on:
+      - mongo
+    networks:
+      - servicesNetwork
+    restart: always
+  products:
+    container_name: products
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_CONTEXT=products
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      NODE_ENV: production
+      SERVICE_NAME: products
+    depends_on:
+      - mongo
+    networks:
+      - servicesNetwork
+    restart: always
 
+## Docker-compose configuration
 networks:
   servicesNetwork:
     driver: bridge

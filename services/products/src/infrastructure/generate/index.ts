@@ -15,46 +15,60 @@ export type Scalars = {
   _FieldSet: any;
 };
 
-export type CreateStoreInput = {
-  fee: Scalars['Float'];
-  name: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  createStore?: Maybe<Store>;
-  updateStore?: Maybe<Store>;
+  createProduct?: Maybe<Product>;
+  deleteProduct?: Maybe<Scalars['Boolean']>;
+  updateProduct?: Maybe<Product>;
 };
 
 
-export type MutationCreateStoreArgs = {
-  fee: Scalars['Float'];
+export type MutationCreateProductArgs = {
   name: Scalars['String'];
+  price: Scalars['Float'];
+  storeId: Scalars['String'];
 };
 
 
-export type MutationUpdateStoreArgs = {
-  fee?: InputMaybe<Scalars['Float']>;
+export type MutationDeleteProductArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateProductArgs = {
   id: Scalars['ID'];
   name?: InputMaybe<Scalars['String']>;
+  price: Scalars['Float'];
+};
+
+export type Product = {
+  __typename?: 'Product';
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  store?: Maybe<Store>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  store?: Maybe<Store>;
-  stores?: Maybe<Array<Maybe<Store>>>;
+  product?: Maybe<Product>;
+  products?: Maybe<Array<Maybe<Product>>>;
 };
 
 
-export type QueryStoreArgs = {
+export type QueryProductArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryProductsArgs = {
+  storeId: Scalars['ID'];
 };
 
 export type Store = {
   __typename?: 'Store';
-  fee?: Maybe<Scalars['Float']>;
   id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  products?: Maybe<Array<Maybe<Product>>>;
 };
 
 
@@ -137,48 +151,58 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  CreateStoreInput: CreateStoreInput;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Product: ResolverTypeWrapper<Product>;
   Query: ResolverTypeWrapper<{}>;
   Store: ResolverTypeWrapper<Store>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  CreateStoreInput: CreateStoreInput;
-  Float: Scalars['Float'];
-  String: Scalars['String'];
   Mutation: {};
+  String: Scalars['String'];
+  Float: Scalars['Float'];
+  Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Product: Product;
   Query: {};
   Store: Store;
-  Boolean: Scalars['Boolean'];
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationCreateStoreArgs, 'fee' | 'name'>>;
-  updateStore?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<MutationUpdateStoreArgs, 'id'>>;
+  createProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'name' | 'price' | 'storeId'>>;
+  deleteProduct?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'id'>>;
+  updateProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'id' | 'price'>>;
+};
+
+export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Product']>, { __typename: 'Product' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  store?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  store?: Resolver<Maybe<ResolversTypes['Store']>, ParentType, ContextType, RequireFields<QueryStoreArgs, 'id'>>;
-  stores?: Resolver<Maybe<Array<Maybe<ResolversTypes['Store']>>>, ParentType, ContextType>;
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>;
+  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType, RequireFields<QueryProductsArgs, 'storeId'>>;
 };
 
 export type StoreResolvers<ContextType = any, ParentType extends ResolversParentTypes['Store'] = ResolversParentTypes['Store']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Store']>, { __typename: 'Store' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  fee?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
+  Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Store?: StoreResolvers<ContextType>;
 };

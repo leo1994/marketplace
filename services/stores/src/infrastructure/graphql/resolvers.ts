@@ -1,4 +1,5 @@
 import { CreateStore, FindStoreById, GetAllStores, UpdateStore } from '@application/usecases'
+import Store from '@domain/store'
 import StoreDBRepositoryMongoDB from '@infrastructure/database/mongo/storeDBRepositoryMongoDB'
 import { Resolvers } from '@infrastructure/generate'
 
@@ -17,12 +18,19 @@ export const resolvers: Resolvers = {
       return store
     }
   },
+  Store: {
+    __resolveReference: async ({ id }) => {
+      const storeFound = await findStoreById.execute(id)
+      return storeFound
+    }
+  },
+
   Mutation: {
     createStore: async (_: any, { name, fee }: { name: string, fee: number }) => {
       const store = await createStore.execute({ name, fee })
       return store
     },
-    updateStore: async (_: any, { id, name, fee }) => {
+    updateStore: async (_: any, { id, name, fee }: { id: string, name?: string | null, fee?: number | null }) => {
       const store = await updateStore.execute({ id, name, fee })
       return store
     }

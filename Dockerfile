@@ -26,11 +26,14 @@ FROM node:18-alpine AS runtime
 ARG BUILD_CONTEXT
 ENV NODE_ENV production
 WORKDIR /base
+RUN mkdir /base/logs
+RUN chown node:node /base/logs
 USER node
 COPY ./packages ./packages/
 COPY --chown=node:node --from=prodDependencies /base/services/${BUILD_CONTEXT}/package.json ./package.json
 COPY --chown=node:node --from=prodDependencies /base/node_modules ./node_modules/
 COPY --chown=node:node --from=build /base/services/${BUILD_CONTEXT}/dist ./dist/
 COPY --chown=node:node --from=build /base/services/${BUILD_CONTEXT}/tsconfig.json ./tsconfig.json
+# To Fix Permissions for Packages
 
 CMD ["npm", "run", "start"]

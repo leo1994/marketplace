@@ -11,7 +11,7 @@ export default class Graphql {
 
   static async init (graphqlFile: string, resolver: any): Promise<{ url: string }> {
     const typeDefs = gql(graphqlFile)
-
+    const port = Number(process.env.APP_PORT) || 4000
     this.server = new ApolloServer({
       schema: buildSubgraphSchema({ typeDefs, resolvers: resolver }),
       plugins: [
@@ -22,6 +22,10 @@ export default class Graphql {
       ]
     })
 
-    return await startStandaloneServer(this.server)
+    return await startStandaloneServer(this.server, {
+      listen: {
+        port
+      }
+    })
   }
 }

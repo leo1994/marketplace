@@ -1,4 +1,4 @@
-import { NotFoundError } from '@application/exceptions'
+import { NotFoundError } from '@marketplace/core'
 import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'
 import { FindStoreById } from '@application/usecases'
 

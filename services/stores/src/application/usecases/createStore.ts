@@ -1,4 +1,4 @@
-import { ValidationError } from '@application/exceptions'
+import { ValidationError } from '@marketplace/core'
 import StoreDBRepository from '@application/repositories/storeDBRepository'
 import { CreateStoreValidator } from '@application/validators'
 import Store from '@domain/store'

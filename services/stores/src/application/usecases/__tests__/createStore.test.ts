@@ -1,4 +1,4 @@
-import { ValidationError } from '@application/exceptions'
+import { ValidationError } from '@marketplace/core'
 import { CreateStore } from '@application/usecases'
 import { SchemaErrorMessages } from '@application/validators/storeSchema'
 import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'

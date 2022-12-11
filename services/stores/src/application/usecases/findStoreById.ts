@@ -1,4 +1,4 @@
-import { NotFoundError } from '@application/exceptions/'
+import { NotFoundError } from '@marketplace/core'
 import StoreDBRepository from '@application/repositories/storeDBRepository'
 import Store from '@domain/store'
 

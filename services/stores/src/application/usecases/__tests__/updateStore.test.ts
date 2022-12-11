@@ -1,4 +1,4 @@
-import { ValidationError, NotFoundError } from '@application/exceptions/'
+import { ValidationError, NotFoundError } from '@marketplace/core'
 import { SchemaErrorMessages } from '@application/validators/storeSchema'
 import { UpdateStore } from '@application/usecases/'
 import StoreDBRepositoryMock from '../__mocks__/storeDBRepositoryMock'
@@ -22,6 +22,13 @@ describe('UpdateStore', () => {
       const errorMessages = JSON.parse(error.message)
       expect(errorMessages.name).toBe(SchemaErrorMessages.nameRequired)
     }
+  })
+
+  it('should update a fee decial', async () => {
+    const updateStore = new UpdateStore(mockStoreRepository)
+    const store = await updateStore.execute({ id: '3', name: 'Store 3', fee: 10.5 })
+    expect(store.name).toBe('Store 3')
+    expect(store.fee).toBe(10.5)
   })
 
   it('should return error when fee is 0', async () => {

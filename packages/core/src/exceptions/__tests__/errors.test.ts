@@ -1,4 +1,4 @@
-import { BaseError } from '@application/exceptions'
+import { BaseError } from '../index'
 
 describe('BaseError', () => {
   it('should return error message', () => {
