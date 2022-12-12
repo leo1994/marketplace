@@ -1,14 +1,15 @@
 import Joi from 'joi'
 
 export enum SchemaErrorMessages {
-  'idRequired' = 'Id is required',
+  'productListEmpty' = 'Product list is empty',
+  'productIdEmpty' = 'Product id is empty',
 }
 
-const messageErrors = {
-  'string.empty': SchemaErrorMessages.idRequired,
-  'any.required': SchemaErrorMessages.idRequired
+const productListErrors = {
+  'array.includesRequiredUnknowns': SchemaErrorMessages.productListEmpty,
+  'string.empty': SchemaErrorMessages.productIdEmpty
 }
 
 export const CreateOrderSchema = Joi.object({
-
+  productList: Joi.array().items(Joi.string().required()).required().messages(productListErrors)
 })

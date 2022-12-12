@@ -4,7 +4,8 @@ import OrderStatus from '@domain/orderStatus'
 
 const orders = Array.from({ length: 10 }, (_, i) => ({
   id: `${i}`,
-  status: Object.keys(OrderStatus)[Math.floor(Math.random() * Object.keys(OrderStatus).length)] as OrderStatus
+  status: Object.keys(OrderStatus)[Math.floor(Math.random() * Object.keys(OrderStatus).length)] as OrderStatus,
+  productList: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, () => `${Math.floor(Math.random() * 100)}`)
 }))
 
 export default class OrderDBRepositoryMock implements OrderDBRepository {

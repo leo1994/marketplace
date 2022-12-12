@@ -18,7 +18,7 @@ describe('GetOrderById', () => {
   it('should create a new order and get it by id', async () => {
     const createOrder = new CreateOrder(mockOrderRepository)
 
-    const order = await createOrder.execute()
+    const order = await createOrder.execute({ productList: ['1', '2', '3'] })
 
     const getOrderById = new GetOrderById(mockOrderRepository)
 
@@ -26,6 +26,8 @@ describe('GetOrderById', () => {
 
     expect(orderById).toHaveProperty('id')
     expect(orderById).toHaveProperty('status')
+    expect(orderById).toHaveProperty('productList')
+    expect(orderById.productList).toEqual(order.productList)
     expect(orderById.id).toBe(order.id)
     expect(orderById.status).toBe(order.status)
   })

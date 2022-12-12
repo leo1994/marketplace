@@ -10,5 +10,5 @@ type Order @key(fields: "id") @shareable {
 }
 
 type Mutation {
-    createOrder: Order
+    createOrder(productList: [String!]!): Order
 }
