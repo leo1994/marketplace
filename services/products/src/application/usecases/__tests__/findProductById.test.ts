@@ -1,12 +1,12 @@
 import { FindProductById } from '@application/usecases'
 import { NotFoundError } from '@marketplace/core'
-import StoreDBRepositoryMock from '../__mocks__/productDBRepositoryMock'
+import ProductDBRepositoryMock from '../__mocks__/productDBRepositoryMock'
 
-const mockStoreRepository = new StoreDBRepositoryMock()
+const mockProductRepository = new ProductDBRepositoryMock()
 
 describe('FindProductById', () => {
   it('should find a product by id', async () => {
-    const findProductById = new FindProductById(mockStoreRepository)
+    const findProductById = new FindProductById(mockProductRepository)
     const product = await findProductById.execute('1')
     expect(product).toHaveProperty('id')
     expect(product).toHaveProperty('name')
@@ -17,7 +17,7 @@ describe('FindProductById', () => {
   })
 
   it('should return error when product does not exist', async () => {
-    const findProductById = new FindProductById(mockStoreRepository)
+    const findProductById = new FindProductById(mockProductRepository)
     try {
       await findProductById.execute('abc')
     } catch (error: any) {

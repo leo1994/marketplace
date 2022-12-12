@@ -2,10 +2,14 @@ federation_version: 2
 
 subgraphs:
   stores-service:
-    routing_url: http://localhost:4011
+    routing_url: http://localhost:4010
     schema:
       file: '../services/stores/src/infrastructure/graphql/schema.graphql'
   products-service:
-    routing_url: http://localhost:4010
+    routing_url: http://localhost:4011
     schema:
       file: '../services/products/src/infrastructure/graphql/schema.graphql'
+  orders-service:
+    routing_url: http://localhost:4012
+    schema:
+      file: '../services/orders/src/infrastructure/graphql/schema.graphql'

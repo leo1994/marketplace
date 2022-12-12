@@ -9,3 +9,7 @@ subgraphs:
     routing_url: http://products:4000
     schema:
       file: '../services/products/src/infrastructure/graphql/schema.graphql'
+  orders-service:
+    routing_url: http://orders:4000
+    schema:
+      file: '../services/orders/src/infrastructure/graphql/schema.graphql'

@@ -1,13 +1,13 @@
 import { UpdateProduct } from '@application/usecases'
 import { SchemaErrorMessages } from '@application/validators/productSchema'
 import { NotFoundError, ValidationError } from '@marketplace/core'
-import StoreDBRepositoryMock from '../__mocks__/productDBRepositoryMock'
+import ProductDBRepositoryMock from '../__mocks__/productDBRepositoryMock'
 
-const mockStoreRepository = new StoreDBRepositoryMock()
+const mockProductRepository = new ProductDBRepositoryMock()
 
 describe('UpdateProduct', () => {
   it('should update a product', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     const product = await updateProduct.execute({
       id: '1',
       name: 'Product Updated',
@@ -23,7 +23,7 @@ describe('UpdateProduct', () => {
   })
 
   it('should return error when product does not exist', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     try {
       await updateProduct.execute({
         id: 'abc',
@@ -37,7 +37,7 @@ describe('UpdateProduct', () => {
   })
 
   it('should return error when id is not provided', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     try {
       await updateProduct.execute({
         id: '',
@@ -52,7 +52,7 @@ describe('UpdateProduct', () => {
   })
 
   it('should return error when name is not provided', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     try {
       await updateProduct.execute({
         id: '1',
@@ -67,7 +67,7 @@ describe('UpdateProduct', () => {
   })
 
   it('should return error when price is not provided', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     try {
       await updateProduct.execute({
         id: '1',
@@ -82,7 +82,7 @@ describe('UpdateProduct', () => {
   })
 
   it('should return error when price is not a number', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     try {
       await updateProduct.execute({
         id: '1',
@@ -97,7 +97,7 @@ describe('UpdateProduct', () => {
   })
 
   it('should return error when price is less than 0', async () => {
-    const updateProduct = new UpdateProduct(mockStoreRepository)
+    const updateProduct = new UpdateProduct(mockProductRepository)
     try {
       await updateProduct.execute({
         id: '1',

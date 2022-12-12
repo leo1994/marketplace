@@ -26,6 +26,7 @@ input CreateStoreInput
 scalar join__FieldSet
 
 enum join__Graph {
+  ORDERS_SERVICE @join__graph(name: "orders-service", url: "http://orders:4000")
   PRODUCTS_SERVICE @join__graph(name: "products-service", url: "http://products:4000")
   STORES_SERVICE @join__graph(name: "stores-service", url: "http://stores:4000")
 }
@@ -45,14 +46,23 @@ enum link__Purpose {
 }
 
 type Mutation
+  @join__type(graph: ORDERS_SERVICE)
   @join__type(graph: PRODUCTS_SERVICE)
   @join__type(graph: STORES_SERVICE)
 {
+  createOrder: Order @join__field(graph: ORDERS_SERVICE)
   createProduct(name: String!, price: Float!, storeId: String!): Product @join__field(graph: PRODUCTS_SERVICE)
   updateProduct(id: ID!, name: String, price: Float!): Product @join__field(graph: PRODUCTS_SERVICE)
   deleteProduct(id: ID!): Boolean @join__field(graph: PRODUCTS_SERVICE)
   createStore(name: String!, fee: Float!): Store @join__field(graph: STORES_SERVICE)
   updateStore(id: ID!, name: String, fee: Float): Store @join__field(graph: STORES_SERVICE)
+}
+
+type Order
+  @join__type(graph: ORDERS_SERVICE, key: "id")
+{
+  id: ID!
+  status: String
 }
 
 type Product
@@ -65,9 +75,11 @@ type Product
 }
 
 type Query
+  @join__type(graph: ORDERS_SERVICE)
   @join__type(graph: PRODUCTS_SERVICE)
   @join__type(graph: STORES_SERVICE)
 {
+  order(id: ID!): Order @join__field(graph: ORDERS_SERVICE)
   product(id: ID!): Product @join__field(graph: PRODUCTS_SERVICE)
   products(storeId: ID!): [Product] @join__field(graph: PRODUCTS_SERVICE)
   store(id: ID!): Store @join__field(graph: STORES_SERVICE)
