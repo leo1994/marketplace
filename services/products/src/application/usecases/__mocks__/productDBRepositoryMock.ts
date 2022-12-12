@@ -11,7 +11,7 @@ const products = Array.from({ length: 50 }, (_, i) => i + 1).map((i) => ({
 export default class ProductDBRepositoryMock implements ProductDBRepository {
   async create (product: Omit<Product, 'id'>): Promise<Product> {
     products.push({ ...product, id: (products.length + 1).toString() })
-    return { ...product, id: (products.length + 1).toString() }
+    return { ...product, id: (products.length).toString() }
   }
 
   async update (product: Product): Promise<Product | null> {

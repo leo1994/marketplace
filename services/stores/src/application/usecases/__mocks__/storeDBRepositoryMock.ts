@@ -10,7 +10,7 @@ const stores = Array.from({ length: 3 }, (_, i) => i + 1).map((i) => ({
 export default class StoreDBRepositoryMock implements StoreDBRepository {
   async create (store: Omit<Store, 'id'>): Promise<Store> {
     stores.push({ ...store, id: (stores.length + 1).toString() })
-    return { ...store, id: (stores.length + 1).toString() }
+    return { ...store, id: (stores.length).toString() }
   }
 
   async update (store: Store): Promise<Store | null> {

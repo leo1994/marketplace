@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo } from 'graphql'
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -31,12 +31,9 @@ export type Query = {
   order?: Maybe<Order>;
 };
 
-
 export type QueryOrderArgs = {
   id: Scalars['ID'];
 };
-
-
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -49,8 +46,7 @@ export type ReferenceResolver<TResult, TReference, TContext> = (
       type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
       type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
       type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
-      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
-    
+export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -139,7 +135,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Order']>, { __typename: 'Order' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Order']>, { __typename: 'Order' } & GraphQLRecursivePick<ParentType, {'id':true}>, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -154,4 +150,3 @@ export type Resolvers<ContextType = any> = {
   Order?: OrderResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
-
