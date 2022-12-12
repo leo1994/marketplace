@@ -16,7 +16,7 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     createOrder: async (_, { productList }: { productList: string[]}) => {
-      const order = await createOrder.execute(productList)
+      const order = await createOrder.execute({ productList })
       return order
     }
   }
