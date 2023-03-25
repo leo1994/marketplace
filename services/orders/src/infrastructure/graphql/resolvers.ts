@@ -1,10 +1,12 @@
 import { CreateOrder, GetOrderById } from '@application/usecases'
 import OrderDBRepositoryMongoDB from '@infrastructure/database/mongo/orderDBRepositoryMongoDB'
 import { Resolvers } from '@infrastructure/generate'
+import Kafka from '@infrastructure/kafka'
 
 const orderRepository = new OrderDBRepositoryMongoDB()
+const kafka = new Kafka()
 
-const createOrder = new CreateOrder(orderRepository)
+const createOrder = new CreateOrder(orderRepository, kafka)
 const getOrderById = new GetOrderById(orderRepository)
 
 export const resolvers: Resolvers = {

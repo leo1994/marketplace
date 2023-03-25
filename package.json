@@ -12,7 +12,8 @@
     "start:dev": "lerna run start:dev --parallel",
     "start:packages": "lerna run start:packages",
     "codegen": "lerna run codegen",
-    "supergraph": "APOLLO_ELV2_LICENSE=accept rover supergraph compose --config ./apolloRouter/supergraph.yml > ./apolloRouter/supergraph.graphql"
+    "supergraph": "APOLLO_ELV2_LICENSE=accept rover supergraph compose --config ./apolloRouter/supergraph.yml > ./apolloRouter/supergraph.graphql",
+    "supergraph:dev": "APOLLO_ELV2_LICENSE=accept rover supergraph compose --config ./apolloRouter/supergraph.dev.yml > ./apolloRouter/supergraph.graphql"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.16.1",
@@ -36,6 +37,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "kafkajs": "^2.2.4",
     "tsconfig-paths": "^4.1.1"
   }
 }

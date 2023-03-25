@@ -1,18 +1,22 @@
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  @link(url: "https://specs.apollo.dev/join/v0.2", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
 {
   query: Query
   mutation: Mutation
 }
 
-directive @join__field(graph: join__Graph!, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 
 directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
 
-directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
 
@@ -26,9 +30,9 @@ input CreateStoreInput
 scalar join__FieldSet
 
 enum join__Graph {
-  ORDERS_SERVICE @join__graph(name: "orders-service", url: "http://orders:4000")
-  PRODUCTS_SERVICE @join__graph(name: "products-service", url: "http://products:4000")
-  STORES_SERVICE @join__graph(name: "stores-service", url: "http://stores:4000")
+  ORDERS_SERVICE @join__graph(name: "orders-service", url: "http://localhost:4012")
+  PRODUCTS_SERVICE @join__graph(name: "products-service", url: "http://localhost:4011")
+  STORES_SERVICE @join__graph(name: "stores-service", url: "http://localhost:4010")
 }
 
 scalar link__Import
@@ -50,7 +54,7 @@ type Mutation
   @join__type(graph: PRODUCTS_SERVICE)
   @join__type(graph: STORES_SERVICE)
 {
-  createOrder: Order @join__field(graph: ORDERS_SERVICE)
+  createOrder(productList: [String!]!): Order @join__field(graph: ORDERS_SERVICE)
   createProduct(name: String!, price: Float!, storeId: String!): Product @join__field(graph: PRODUCTS_SERVICE)
   updateProduct(id: ID!, name: String, price: Float!): Product @join__field(graph: PRODUCTS_SERVICE)
   deleteProduct(id: ID!): Boolean @join__field(graph: PRODUCTS_SERVICE)

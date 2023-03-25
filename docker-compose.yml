@@ -14,7 +14,7 @@ services:
     networks:
       - servicesNetwork
   apollo-router:
-    image: ghcr.io/apollographql/router:v1.5.0
+    image: ghcr.io/apollographql/router:v1.13.0
     container_name: apollo-router
     restart: always
     depends_on:
