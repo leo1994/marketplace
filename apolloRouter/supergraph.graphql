@@ -30,9 +30,9 @@ input CreateStoreInput
 scalar join__FieldSet
 
 enum join__Graph {
-  ORDERS_SERVICE @join__graph(name: "orders-service", url: "http://localhost:4012")
-  PRODUCTS_SERVICE @join__graph(name: "products-service", url: "http://localhost:4011")
-  STORES_SERVICE @join__graph(name: "stores-service", url: "http://localhost:4010")
+  ORDERS_SERVICE @join__graph(name: "orders-service", url: "http://orders:4000")
+  PRODUCTS_SERVICE @join__graph(name: "products-service", url: "http://products:4000")
+  STORES_SERVICE @join__graph(name: "stores-service", url: "http://stores:4000")
 }
 
 scalar link__Import

@@ -1,16 +1,16 @@
 import OrderDBRepository from '@application/repositories/orderDBRepository'
+import OrderTopicRepository from '@application/repositories/orderTopicRepository'
 import { CreateOrderValidator } from '@application/validators'
 import Order from '@domain/order'
 import OrderStatus from '@domain/orderStatus'
 import { ValidationError } from '@marketplace/core'
-import Kafka from '@infrastructure/kafka'
 import Logger from '@marketplace/logger'
 
 export type CreateOrderRequest = {
   productList: string[]
 }
 export default class CreateOrder {
-  constructor (private readonly orderRepository: OrderDBRepository, private readonly orderQueueRepository: Kafka) { }
+  constructor (private readonly orderRepository: OrderDBRepository, private readonly orderTopicRepository: OrderTopicRepository) { }
 
   async execute ({ productList }: CreateOrderRequest): Promise<Order> {
     try {
@@ -22,8 +22,7 @@ export default class CreateOrder {
         productList,
         status: OrderStatus.CreatingOrder
       })
-      await this.orderQueueRepository.send('order', order)
-
+      await this.orderTopicRepository.publishOrderCreated(order)
       return order
     } catch (error) {
       Logger.error(error)

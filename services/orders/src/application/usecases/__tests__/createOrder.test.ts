@@ -1,12 +1,14 @@
 import { ValidationError } from '@marketplace/core'
 import CreateOrder from '../createOrder'
 import OrderDBRepositoryMock from '../__mocks__/orderDBRepositoryMock'
+import OrderTopicRepositoryMock from '../__mocks__/orderTopicRepositoryMock'
 
-const mockOrderRepository = new OrderDBRepositoryMock()
+const mockOrderDBRepository = new OrderDBRepositoryMock()
+const mockOrderTopicRepository = new OrderTopicRepositoryMock()
 
 describe('CreateOrder', () => {
   it('should create a new order', async () => {
-    const createOrder = new CreateOrder(mockOrderRepository)
+    const createOrder = new CreateOrder(mockOrderDBRepository, mockOrderTopicRepository)
     const productList = ['1', '2', '3']
     const order = await createOrder.execute({ productList })
 
@@ -18,7 +20,7 @@ describe('CreateOrder', () => {
   })
 
   it('should returno an error if product list is empty', async () => {
-    const createOrder = new CreateOrder(mockOrderRepository)
+    const createOrder = new CreateOrder(mockOrderDBRepository, mockOrderTopicRepository)
     const productList: string[] = []
     try {
       await createOrder.execute({ productList })
@@ -31,7 +33,7 @@ describe('CreateOrder', () => {
   })
 
   it('should returno an error if product list is null', async () => {
-    const createOrder = new CreateOrder(mockOrderRepository)
+    const createOrder = new CreateOrder(mockOrderDBRepository, mockOrderTopicRepository)
     const productList: string[] = ['']
     try {
       await createOrder.execute({ productList })

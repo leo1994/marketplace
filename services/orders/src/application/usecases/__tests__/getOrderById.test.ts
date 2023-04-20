@@ -2,12 +2,14 @@ import { NotFoundError } from '@marketplace/core'
 import CreateOrder from '../createOrder'
 import GetOrderById from '../getOrderById'
 import OrderDBRepositoryMock from '../__mocks__/orderDBRepositoryMock'
+import OrderTopicRepositoryMock from '../__mocks__/orderTopicRepositoryMock'
 
-const mockOrderRepository = new OrderDBRepositoryMock()
+const mockOrderDBRepository = new OrderDBRepositoryMock()
+const mockOrderTopicRepository = new OrderTopicRepositoryMock()
 
 describe('GetOrderById', () => {
   it('should get a order by id', async () => {
-    const getOrderById = new GetOrderById(mockOrderRepository)
+    const getOrderById = new GetOrderById(mockOrderDBRepository)
 
     const order = await getOrderById.execute('1')
 
@@ -16,11 +18,11 @@ describe('GetOrderById', () => {
   })
 
   it('should create a new order and get it by id', async () => {
-    const createOrder = new CreateOrder(mockOrderRepository)
+    const createOrder = new CreateOrder(mockOrderDBRepository, mockOrderTopicRepository)
 
     const order = await createOrder.execute({ productList: ['1', '2', '3'] })
 
-    const getOrderById = new GetOrderById(mockOrderRepository)
+    const getOrderById = new GetOrderById(mockOrderDBRepository)
 
     const orderById = await getOrderById.execute(order.id)
 
@@ -33,7 +35,7 @@ describe('GetOrderById', () => {
   })
 
   it('should throw an error if order not found', async () => {
-    const getOrderById = new GetOrderById(mockOrderRepository)
+    const getOrderById = new GetOrderById(mockOrderDBRepository)
     try {
       await getOrderById.execute('NotExistOrderId')
     } catch (error: any) {

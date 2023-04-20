@@ -35,6 +35,3 @@ npm run test
 - Docker 
 - Docker-compose
 - MongoDB
-
-
-
